@@ -34,7 +34,7 @@ public class CityController {
     }
 
     @GetMapping("")
-    public ModelAndView showList(@PageableDefault(size = 3) Pageable pageable) {
+    public ModelAndView showList(@PageableDefault(size = 6) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("/city/list");
         modelAndView.addObject("cities", cityService.findAll(pageable));
         return modelAndView;
