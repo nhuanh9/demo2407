@@ -36,7 +36,6 @@ public class CityController {
     @GetMapping("")
     public ModelAndView showList(@PageableDefault(size = 3) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("/city/list");
-        Page page = cityService.findAll(pageable);
         modelAndView.addObject("cities", cityService.findAll(pageable));
         return modelAndView;
     }
@@ -95,6 +94,13 @@ public class CityController {
     public String delete(@PathVariable Long id) {
         cityService.delete(id);
         return "redirect:/cities";
+    }
+
+    @GetMapping("/search")
+    public ModelAndView findByName(String name) {
+        ModelAndView modelAndView = new ModelAndView("/city/list");
+        modelAndView.addObject("cities", cityService.findAllByName("%" + name + "%") );
+        return modelAndView;
     }
 
 }

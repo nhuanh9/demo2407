@@ -39,4 +39,9 @@ public class CityService implements ICityService {
     public Page<City> findAll(Pageable pageable) {
         return cityRepository.findAll(pageable);
     }
+
+    @Override
+    public Iterable<City> findAllByName(String name) {
+        return cityRepository.findAllByName(name);
+    }
 }

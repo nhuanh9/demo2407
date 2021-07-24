@@ -11,10 +11,10 @@
 <div class="container">
     <div class="row" th:fragment="top">
         <div class="col-3 text-center">
-            Logo
+            <img src="https://avatars.githubusercontent.com/u/49300627?s=400&u=3b0331663621a036ea6a7e6a514de8a0172e3412&v=4" width="80%">
         </div>
         <div class="col-9 text-center">
-            Banner
+            <img src="https://realmenvn.files.wordpress.com/2013/11/cropped-realmen-banner.jpg" alt="">
         </div>
     </div>
     <div class="row mt-3" th:fragment="menu">
@@ -39,8 +39,8 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" action="/cities/search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
