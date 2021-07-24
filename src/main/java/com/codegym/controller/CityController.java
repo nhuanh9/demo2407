@@ -4,6 +4,9 @@ import com.codegym.model.City;
 import com.codegym.service.city.ICityService;
 import com.codegym.service.country.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -31,9 +34,10 @@ public class CityController {
     }
 
     @GetMapping("")
-    public ModelAndView showList() {
+    public ModelAndView showList(@PageableDefault(size = 3) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("/city/list");
-        modelAndView.addObject("cities", cityService.findAll());
+        Page page = cityService.findAll(pageable);
+        modelAndView.addObject("cities", cityService.findAll(pageable));
         return modelAndView;
     }
 

@@ -22,6 +22,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a th:href="@{'/cities'(page=${cities.number - 1})}" th:if="${cities.hasPrevious()}">Previous</a>
+                    <span th:text="${cities.number + 1}"></span>/<span th:text="${cities.totalPages}"></span>
+                    <a th:href="@{'/cities'(page=${cities.number + 1})}" th:if="${cities.hasNext()}">Next</a>
+                </div>
+            </div>
         </div>
         <div th:replace="/layout :: adv"></div>
     </div>

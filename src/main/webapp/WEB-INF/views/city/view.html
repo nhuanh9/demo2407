@@ -22,6 +22,7 @@
                     <h5 th:text="'Dân số: '+${city.population} +' triệu người'"></h5>
                     <h5 th:text="'GDP: '+${city.GDP} +' triệu/người'"></h5>
                     <h5 th:text="'Mô tả: '+${city.description}"></h5>
+                    <h5 th:text="'Quốc gia: '+${city.country.name}"></h5>
                     <a th:href="@{/cities/__${id}__/edit}" class="btn btn-outline-secondary">Sửa</a>
                     <a th:href="@{/cities/__${id}__/delete}" class="btn btn-outline-danger">Xoá</a>
                 </div>
