@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <!--th:replace: thay thế thẻ hiện tại bằng thẻ có tên tương ứng được khai báo fragment-->
+    <div th:replace="/layout :: top"></div>
+    <div th:replace="/layout :: menu"></div>
+    <div class="row mt-3">
+        <div th:replace="/layout :: taskbar"></div>
+        <div class="col-7 p-3" style="border: 1px solid; border-radius: 5px">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row align-center">
+                    <div class="col-12">
+                        <img th:src="@{'/nhuanh/'+${city.image}}" alt="" width="100%">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="exampleInputEmail1" th:value="${city.name}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail2" class="form-label">
+                        Area
+                    </label>
+                    <input type="number" class="form-control" name="area" id="exampleInputEmail2"  th:value="${city.area}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail4" class="form-label">
+                        Population
+                    </label>
+                    <input type="number" class="form-control" name="population" id="exampleInputEmail4" th:value="${city.population}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail3" class="form-label">
+                        GDP
+                    </label>
+                    <input type="number" class="form-control" name="GDP" id="exampleInputEmail3"  th:value="${city.GDP}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail5" class="form-label">
+                        Description
+                    </label>
+                    <input type="text" class="form-control" name="description" id="exampleInputEmail5"  th:value="${city.description}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail5" class="form-label">
+                        Image
+                    </label>
+                    <input type="file" class="form-control" name="file" id="exampleInputEmail5" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail6" class="form-label">
+                        Country
+                    </label>
+                    <select name="country" id="exampleInputEmail6" class="form-control">
+                        <option th:each="country: ${countries}" th:value="${country.id}" th:text="${country.name}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div th:replace="/layout :: adv"></div>
+    </div>
+    <div th:replace="/layout :: footer"></div>
+</div>
+</body>
+</html>
