@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.exception.F404Exception;
 import com.codegym.model.City;
 import com.codegym.service.city.ICityService;
 import com.codegym.service.country.ICountryService;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 @RequestMapping("/cities")
@@ -34,7 +36,7 @@ public class CityController {
     }
 
     @GetMapping("")
-    public ModelAndView showList(@PageableDefault(size = 6) Pageable pageable) {
+    public ModelAndView showList(@PageableDefault(size = 6) Pageable pageable) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/city/list");
         modelAndView.addObject("cities", cityService.findAll(pageable));
         return modelAndView;
@@ -42,6 +44,10 @@ public class CityController {
 
     @GetMapping("/{id}")
     public ModelAndView showOne(@PathVariable Long id) {
+        Optional<City> city = cityService.findById(id);
+        if (!city.isPresent()) {
+            throw new NullPointerException();
+        }
         ModelAndView modelAndView = new ModelAndView("/city/view");
         modelAndView.addObject("city", cityService.findById(id).get());
         return modelAndView;
@@ -63,7 +69,10 @@ public class CityController {
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView showFormEdit(@PathVariable Long id) {
+    public ModelAndView showFormEdit(@PathVariable Long id) throws F404Exception {
+        if (!cityService.findById(id).isPresent()) {
+            throw new F404Exception();
+        }
         ModelAndView modelAndView = new ModelAndView("/city/edit");
         modelAndView.addObject("countries", countryService.findAll());
         modelAndView.addObject("city", cityService.findById(id).get());
