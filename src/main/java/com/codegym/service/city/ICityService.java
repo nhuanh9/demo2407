@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface ICityService extends IGeneralService<City> {
     Page<City> findAll(Pageable pageable);
     Iterable<City> findAllByName(String name);
+    Iterable<City> findAllByCountryId(Long id);
 }

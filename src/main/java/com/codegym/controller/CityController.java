@@ -4,10 +4,13 @@ import com.codegym.exception.F404Exception;
 import com.codegym.model.City;
 import com.codegym.service.city.ICityService;
 import com.codegym.service.country.ICountryService;
+import com.sun.net.ssl.internal.www.protocol.https.HttpsURLConnectionOldImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -81,7 +84,6 @@ public class CityController {
 
     @PostMapping("/{id}/edit")
     public String saveEdit(@PathVariable Long id, City city, @RequestParam MultipartFile file, BindingResult result) {
-        System.out.println(result);
         String fileName = file.getOriginalFilename();
         try {
             FileCopyUtils.copy(file.getBytes(),
@@ -108,8 +110,19 @@ public class CityController {
     @GetMapping("/search")
     public ModelAndView findByName(String name) {
         ModelAndView modelAndView = new ModelAndView("/city/list");
-        modelAndView.addObject("cities", cityService.findAllByName("%" + name + "%") );
+        modelAndView.addObject("cities", cityService.findAllByName("%" + name + "%"));
         return modelAndView;
     }
 
+    @GetMapping("/api")
+    public ResponseEntity<Iterable<City>> findAllApi() {
+        Iterable<City> cities = cityService.findAll();
+        return new ResponseEntity(cities, HttpStatus.OK);
+    }
+
+    @PostMapping("/create/api")
+    public ResponseEntity<Void> create(@RequestBody City city) {
+        cityService.save(city);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 }

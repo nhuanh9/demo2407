@@ -44,4 +44,9 @@ public class CityService implements ICityService {
     public Iterable<City> findAllByName(String name) {
         return cityRepository.findAllByName(name);
     }
+
+    @Override
+    public Iterable<City> findAllByCountryId(Long id) {
+        return cityRepository.findAllByCountryId(id);
+    }
 }

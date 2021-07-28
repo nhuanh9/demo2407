@@ -12,4 +12,6 @@ public interface ICityRepository extends PagingAndSortingRepository<City, Long> 
     Page<City> findAll(Pageable pageable);
     @Query("select c from City c where c.name like ?1")
     Iterable<City> findAllByName(String name);
+
+    Iterable<City> findAllByCountryId(Long id);
 }
