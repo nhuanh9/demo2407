@@ -24,6 +24,7 @@ import java.util.Optional;
 
 @Component
 @RequestMapping("/cities")
+@CrossOrigin("*")
 public class CityController {
 
     @Autowired
